@@ -5,6 +5,12 @@ export const createTodo = async (req, res) => {
 
         const {title, description} = req.body
         // console.log(`Todo title is ${title} and des is ${description}`);
+        if(title.trim() === "" || title.length < 3 || description.trim() === "" || description.length < 3) {
+            return res.status(401).json({
+                success : false,
+                message : "Not a valid note"
+            })
+        }
         const createdtodo = await todoSchema.create({
             title : title,
             description : description,
